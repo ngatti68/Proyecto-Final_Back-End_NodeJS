@@ -1,0 +1,13 @@
+{
+  "name": "store-backend-api",
+  "version": "1.0.0",
+  "description": "Proyecto Final Integrador del curso Back-End / Node JS de Talento Tech",  
+  "license": "MIT",
+  "author": "Norberto Gatti",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  }
+}
