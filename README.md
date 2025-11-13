@@ -57,6 +57,7 @@ store-core-api/
 ## Clona el repositorio:
 
    git clone https://github.com/ngatti68/Proyecto-Final_Back-End_NodeJS.git
+   
    cd proyecto-final
 
 ## Instalar dependencias
