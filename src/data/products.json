@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Notebook Lenovo",
+    "price": 1200,
+    "category": "Tecnología"
+  },
+  {
+    "id": 2,
+    "name": "Mouse Logitech",
+    "price": 25,
+    "category": "Accesorios"
+  },
+  {
+    "id": 3,
+    "name": "Teclado Redragon",
+    "price": 45,
+    "category": "Accesorios"
+  },
+  {
+    "id": 4,
+    "name": "Monitor Samsung 24\"",
+    "price": 180,
+    "category": "Tecnología"
+  },
+  {
+    "id": 5,
+    "name": "Auriculares JBL Tune 510BT",
+    "price": 60,
+    "category": "Audio"
+  },
+  {
+    "id": 6,
+    "name": "Silla ergonómica Gamer",
+    "price": 250,
+    "category": "Muebles"
+  },
+  {
+    "id": 7,
+    "name": "Cámara Logitech C920",
+    "price": 90,
+    "category": "Accesorios"
+  },
+  {
+    "id": 8,
+    "name": "Smartphone Motorola G73",
+    "price": 320,
+    "category": "Telefonía"
+  }
+]

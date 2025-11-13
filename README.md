@@ -27,11 +27,9 @@ store-core-api/
 ├── index.js
 ├── .env
 ├── package.json
-├── public/
-│   └── index.html
 ├── src/
+│   ├── app
 │   ├── controllers/
-│   ├── firebase/
 │   ├── middlewares/
 │   ├── models/
 │   ├── routes/
@@ -56,32 +54,54 @@ store-core-api/
 
 ## 📦 Instalación y Ejecución
 
-1. Clona el repositorio:
-   ```bash
+## Clona el repositorio:
+
    git clone https://github.com/ngatti68/Proyecto-Final_Back-End_NodeJS.git
    cd proyecto-final
 
-2. Instalar dependencias
-    ```bash
+## Instalar dependencias
+
     npm install
 
-3. Configurar variables de entorno
-    
-    Crea un archivo `.env` en la raíz del proyecto y define las variables necesarias, por ejemplo:
-    ```bash
-    PORT=3000
-    JWT_SECRET=tu_clave_secreta
+## Configurar variables de entorno
 
-4. Ejecutar el servidor en modo desarrollo
-    ```bash
+    Crea un archivo `.env` en la raíz del proyecto y define las variables necesarias, por ejemplo:
+
+    PORT=3000
+    FRONTEND_URL=http://localhost:5173
+
+## Ejecutar el servidor en modo desarrollo
+
     npm run dev
 
-5. Acceder a la API
+## Acceder a la API
 
     Una vez iniciado el servidor, podés acceder a la API en:
 
-    ```bash
     http://localhost:3000
-    ```
 
-
+## Endpoints
+
+| Método | Ruta                        | Descripción                         | Protegida | Body requerido |
+|--------|-----------------------------|-------------------------------------|-----------|----------------|
+| GET    | /                           | Obtener todos los productos         | No        | No             |
+| GET    | /:id                        | Obtener producto por ID             | No        | No             |
+| GET    | /category/:category         | Obtener productos por categoría     | No        | No             |
+| POST   | /create                     | Crear nuevo producto                | Sí        | Sí             |
+| DELETE | /:id                        | Eliminar producto por ID            | Sí        | No             |
+
+## 📬 Documentación de Endpoints para Postman
+
+**🟢 Obtener todos los productos**
+
+**Método:** `GET /products`
+
+**Descripción:** Obtiene todos los productos disponibles.
+
+```
+URL: `http://localhost:3000/products` 
+
+Headers: No requiere
+Body: No requiere
+Protegido: ❌ No
+```
