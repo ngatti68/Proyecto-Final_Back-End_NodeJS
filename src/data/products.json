@@ -7,26 +7,62 @@
   },
   {
     "id": 2,
-    "name": "Producto actualizado",
-    "price": 199.99,
-    "category": "tecnología"
+    "name": "Monitor Samsung 24 pulgadas",
+    "price": 180,
+    "category": "Tecnología"
   },
   {
     "id": 3,
-    "name": "Teclado Redragon negro",
-    "price": 50,
-    "category": "Accesorios"
-  },
-  {
-    "id": 5,
     "name": "Auriculares JBL Tune 510BT",
     "price": 60,
     "category": "Audio"
   },
   {
-    "id": 6,
+    "id": 4,
     "name": "Silla ergonómica Gamer",
     "price": 250,
     "category": "Muebles"
+  },
+  {
+    "id": 5,
+    "name": "Cámara Logitech C920",
+    "price": 90,
+    "category": "Accesorios"
+  },
+  {
+    "id": 6,
+    "name": "Smartphone Motorola G73",
+    "price": 320,
+    "category": "Telefonía"
+  },
+  {
+    "id": 7,
+    "name": "Router TP-Link Archer AX10",
+    "price": 85,
+    "category": "Redes"
+  },
+  {
+    "id": 8,
+    "name": "Impresora HP DeskJet 2775",
+    "price": 110,
+    "category": "Oficina"
+  },
+  {
+    "id": 9,
+    "name": "Lámpara LED escritorio",
+    "price": 35,
+    "category": "Iluminación"
+  },
+  {
+    "id": 10,
+    "name": "SSD Kingston 480GB",
+    "price": 70,
+    "category": "Almacenamiento"
+  },
+  {
+    "id": 11,
+    "name": "Mochila Targus para notebook",
+    "price": 45,
+    "category": "Accesorios"
   }
 ]

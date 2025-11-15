@@ -1,5 +1,5 @@
 // products.service.js 
-import * as productService from "../models/products.model.js";
+import * as productService from "../models/product.model.js";
 
 export const getAllProducts = () => {
     return productService.getAllProducts();
@@ -14,8 +14,8 @@ export const getProductByCategory = async (category) => {
 };
 
 export const createProduct = async (productData) => {
-    const { name, price } = productData;
-    return productService.saveProduct(name, price);
+    const { name, price, category } = productData;
+    return productService.saveProduct(name, price, category);
 };
 
 async function updateProduct(id, productData) {

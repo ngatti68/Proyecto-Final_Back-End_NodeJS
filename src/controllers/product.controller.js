@@ -11,7 +11,7 @@ export const getAllProducts = async (req, res) => {
 
 export const getProductById = async (req, res) => {
     try {
-        const product = await ProductModel.findById(Number(req.params.id));
+        const product = await ProductModel.findById((req.params.id));
         if (!product) return res.status(404).json({ error: 'Producto no encontrado' });
         res.json(product);
     } catch (error) {
@@ -21,7 +21,7 @@ export const getProductById = async (req, res) => {
 
 export const getProductsByCategory = async (req, res) => {
     try {
-        const category = req.params.category;
+        const category = req.params.category.toLowerCase();
         const products = await ProductModel.findByCategory(category);
         if (!products.length) return res.status(404).json({ error: 'No se encontraron productos en esa categoría' });
         res.json(products);
@@ -32,17 +32,17 @@ export const getProductsByCategory = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const { name, price, category } = req.body;
+        const { id, name, price, category } = req.body;
 
         // Validación mínima
-        if (!name || !price || !category) {
+        if ( !id || !name || !price || !category) {
             return res.status(400).json({
-                error: 'Faltan campos obligatorios: name, price y category'
+                error: 'Faltan campos obligatorios: id, name, price y category'
             });
         }
 
         // Crear el producto
-        const newProduct = await ProductModel.create({ name, price, category });
+        const newProduct = await ProductModel.create({ id, name, price, category });
 
         // Respuesta exitosa
         res.status(201).json({
@@ -59,7 +59,7 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
     try {
-        const id = Number(req.params.id);
+        const id = (req.params.id);
         const { name, price, category } = req.body;
 
         // Validación mínima
@@ -87,7 +87,7 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     try {
-        const success = await ProductModel.deleteById(Number(req.params.id));
+        const success = await ProductModel.deleteById((req.params.id));
         if (!success) return res.status(404).json({ error: 'Producto no encontrado' });
         res.json({ message: 'Producto eliminado' });
     } catch (error) {

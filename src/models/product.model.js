@@ -1,55 +1,43 @@
-import fileService from '../services/fileService.js';
+import { collection, getDocs, getDoc, doc, query, where, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { db } from './firebase.js';
 
-const FILENAME = 'products.json';
+const COLLECTION_NAME = 'products';
 
-const findAll = async () => await fileService.readJson(FILENAME);
+const findAll = async () => {
+    const snapshot = await getDocs(collection(db, COLLECTION_NAME));
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
 
 const findById = async (id) => {
-    const products = await fileService.readJson(FILENAME);
-    return products.find(p => p.id === id);
+    const ref = doc(db, COLLECTION_NAME, id);
+    const snapshot = await getDoc(ref);
+    return snapshot.exists() ? { id: snapshot.id, ...snapshot.data() } : null;
 };
 
 const findByCategory = async (category) => {
-    const products = await fileService.readJson(FILENAME);
-    return products.filter(p => p.category?.toLowerCase() === category.toLowerCase());
+    const q = query(collection(db, COLLECTION_NAME), where('category', '==', category));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
 const create = async (data) => {
-    const products = await fileService.readJson(FILENAME);
-    const newProduct = {
-        id: products.length ? products[products.length - 1].id + 1 : 1,
-        name: data.name,
-        price: data.price,
-        category: data.category
-    };
-    products.push(newProduct);
-    await fileService.writeJson(FILENAME, products);
-    return newProduct;
+    const docId = String(data.id); 
+    const normalizedData = { ...data, category: data.category.toLowerCase()};
+    const ref = doc(db, COLLECTION_NAME, docId);
+    await setDoc(ref, normalizedData);
+    return { id: docId, ...normalizedData };
 };
 
 const updateById = async (id, data) => {
-    const products = await fileService.readJson(FILENAME);
-    const index = products.findIndex(p => p.id === id);
-    if (index === -1) return null;
-
-    // Actualizar campos
-    products[index] = {
-        ...products[index],
-        name: data.name,
-        price: data.price,
-        category: data.category
-    };
-
-    await fileService.writeJson(FILENAME, products);
-    return products[index];
+    const ref = doc(db, COLLECTION_NAME, id);
+    await updateDoc(ref, data);
+    const snapshot = await getDoc(ref);
+    return { id: snapshot.id, ...snapshot.data() };
 };
 
 const deleteById = async (id) => {
-    const products = await fileService.readJson(FILENAME);
-    const index = products.findIndex(p => p.id === id);
-    if (index === -1) return false;
-    products.splice(index, 1);
-    await fileService.writeJson(FILENAME, products);
+    const ref = doc(db, COLLECTION_NAME, id);
+    await deleteDoc(ref);
     return true;
 };
 
