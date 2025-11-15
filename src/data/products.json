@@ -7,14 +7,14 @@
   },
   {
     "id": 2,
-    "name": "Mouse Logitech",
-    "price": 25,
-    "category": "Accesorios"
+    "name": "Producto actualizado",
+    "price": 199.99,
+    "category": "tecnología"
   },
   {
     "id": 3,
-    "name": "Teclado Redragon",
-    "price": 45,
+    "name": "Teclado Redragon negro",
+    "price": 50,
     "category": "Accesorios"
   },
   {

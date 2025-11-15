@@ -27,6 +27,23 @@ const create = async (data) => {
     return newProduct;
 };
 
+const updateById = async (id, data) => {
+    const products = await fileService.readJson(FILENAME);
+    const index = products.findIndex(p => p.id === id);
+    if (index === -1) return null;
+
+    // Actualizar campos
+    products[index] = {
+        ...products[index],
+        name: data.name,
+        price: data.price,
+        category: data.category
+    };
+
+    await fileService.writeJson(FILENAME, products);
+    return products[index];
+};
+
 const deleteById = async (id) => {
     const products = await fileService.readJson(FILENAME);
     const index = products.findIndex(p => p.id === id);
@@ -41,5 +58,6 @@ export default {
     findById,
     findByCategory,
     create,
+    updateById,
     deleteById
 };

@@ -57,6 +57,34 @@ export const createProduct = async (req, res) => {
     }
 };
 
+export const updateProduct = async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        const { name, price, category } = req.body;
+
+        // Validación mínima
+        if (!name || !price || !category) {
+            return res.status(400).json({
+                error: 'Faltan campos obligatorios: name, price y category'
+            });
+        }
+
+        const updatedProduct = await ProductModel.updateById(id, { name, price, category });
+
+        if (!updatedProduct) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+
+        res.json({
+            message: 'Producto actualizado exitosamente',
+            product: updatedProduct
+        });
+    } catch (error) {
+        console.error('Error en updateProduct:', error);
+        res.status(500).json({ error: 'Error interno al actualizar el producto' });
+    }
+};
+
 export const deleteProduct = async (req, res) => {
     try {
         const success = await ProductModel.deleteById(Number(req.params.id));
