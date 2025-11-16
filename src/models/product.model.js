@@ -21,12 +21,20 @@ const findByCategory = async (category) => {
 };
 
 const create = async (data) => {
-    const docId = String(data.id); 
-    const normalizedData = { ...data, category: data.category.toLowerCase()};
+    const docId = String(data.id);
+    const normalizedData = { ...data, category: data.category.toLowerCase() };
     const ref = doc(db, COLLECTION_NAME, docId);
+
+    const existingDoc = await getDoc(ref);
+    if (existingDoc.exists()) {
+        throw new Error(`El producto con ID ${docId} ya existe`);
+    }
+
     await setDoc(ref, normalizedData);
     return { id: docId, ...normalizedData };
 };
+
+
 
 const updateById = async (id, data) => {
     const ref = doc(db, COLLECTION_NAME, id);

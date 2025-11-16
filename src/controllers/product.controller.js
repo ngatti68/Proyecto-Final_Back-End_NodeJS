@@ -35,7 +35,7 @@ export const createProduct = async (req, res) => {
         const { id, name, price, category } = req.body;
 
         // Validación mínima
-        if ( !id || !name || !price || !category) {
+        if (!id || !name || !price || !category) {
             return res.status(400).json({
                 error: 'Faltan campos obligatorios: id, name, price y category'
             });
@@ -46,11 +46,20 @@ export const createProduct = async (req, res) => {
 
         // Respuesta exitosa
         res.status(201).json({
-            message:'Producto creado exitosamente',
+            message: 'Producto creado exitosamente',
             product: newProduct
         });
+
     } catch (error) {
-        console.error('Error en createProduct:', error);
+        // Manejo específico de ID duplicado
+        if (error.message.includes('ya existe')) {
+            console.warn(`Intento de crear producto con ID : ${req.body.id} duplicado`);
+            return res.status(409).json({
+                error: `Ya existe un producto con el ID ${req.body.id}`
+            });
+        }
+
+        // Error genérico
         res.status(500).json({
             error: 'Error interno al crear el producto'
         });
