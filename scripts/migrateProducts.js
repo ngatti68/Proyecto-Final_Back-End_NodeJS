@@ -14,17 +14,15 @@ const migrateProducts = async () => {
     for (const product of products) {
         const docId = String(product.id);
         const normalizedCategory = product.category?.toLowerCase().trim();
-
-        // Verificar si ya existe un documento con ese ID
+        
         const ref = doc(db, COLLECTION_NAME, docId);
         const existingById = await getDoc(ref);
         if (existingById.exists()) {
-            console.log(`⚠️ Ya existe un producto con ID ${docId}. Omitido: ${product.name}`);
+            console.log(`Ya existe un producto con ID ${docId}. Omitido: ${product.name}`);
             skippedById++;
             continue;
         }
-
-        // Verificar si ya existe un producto con mismo nombre y categoría
+        
         const q = query(
             collection(db, COLLECTION_NAME),
             where('name', '==', product.name),
@@ -32,27 +30,26 @@ const migrateProducts = async () => {
         );
         const existingByNameCategory = await getDocs(q);
         if (!existingByNameCategory.empty) {
-            console.log(`⚠️ Producto duplicado por nombre y categoría. Omitido: ${product.name} (${normalizedCategory})`);
+            console.log(`Producto duplicado por nombre y categoría. Omitido: ${product.name} (${normalizedCategory})`);
             skippedByDuplicate++;
             continue;
         }
-
-        // Migrar producto con categoría normalizada
+        
         const normalizedProduct = {
             ...product,
             category: normalizedCategory
         };
 
         await setDoc(ref, normalizedProduct);
-        console.log(`✅ Producto migrado: ${product.name} → ID: ${docId}`);
+        console.log(`Producto migrado: ${product.name} → ID: ${docId}`);
         migrated++;
     }
 
-    console.log('\n📊 Resumen de migración:');
-    console.log(`✅ Migrados: ${migrated}`);
-    console.log(`⚠️ Omitidos por ID duplicado: ${skippedById}`);
-    console.log(`⚠️ Omitidos por nombre/categoría duplicada: ${skippedByDuplicate}`);
-    console.log('🎉 Migración finalizada');
+    console.log('\n Resumen de migración:');
+    console.log(`Migrados: ${migrated}`);
+    console.log(`Omitidos por ID duplicado: ${skippedById}`);
+    console.log(`Omitidos por nombre/categoría duplicada: ${skippedByDuplicate}`);
+    console.log('Migración finalizada');
 };
 
 migrateProducts();

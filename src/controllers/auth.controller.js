@@ -1,24 +1,27 @@
-// src/controllers/auth.controller.js
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import fileService from '../services/fileService.js';
+import { createUser, getUserByEmail } from '../models/user.model.js';
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+export const register = async (req, res) => {
+    const { email, password, role = 'user' } = req.body;
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) return res.status(400).json({ message: 'Usuario ya existe' });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await createUser({ email, password: hashedPassword, role });
+    res.status(201).json({ message: 'Usuario registrado' });
+};
 
 export const login = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
+    const user = await getUserByEmail(email);
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
 
-    try {
-        const users = await fileService.readJson('users.json');
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(401).json({ message: 'Credenciales inválidas' });
 
-        const user = users.find(u => u.username === username && u.password === password);
-
-        if (!user) {
-            return res.status(401).json({ message: 'Credenciales inválidas' });
-        }
-
-        const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.json({ token });
-    } catch (error) {
-        console.error('Error en login:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
-    }
+    const token = jwt.sign({ email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
 };

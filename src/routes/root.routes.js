@@ -1,4 +1,3 @@
-// src/routes/root.routes.js
 import { Router } from 'express';
 
 const router = Router();
