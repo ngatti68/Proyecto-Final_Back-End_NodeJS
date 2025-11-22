@@ -45,6 +45,7 @@ Este proyecto fue desarrollado utilizando herramientas modernas del ecosistema J
 ### 🧩 Core del proyecto
 
 - `Node.js` - Entorno de ejecución para **JavaScript** en el servidor.
+
 - `Express.js` - **Framework minimalista** para construir la API RESTful.
 
 ### ☁️ Persistencia de datos
@@ -58,6 +59,7 @@ Este proyecto fue desarrollado utilizando herramientas modernas del ecosistema J
 ### 📦 Utilidades y configuración
 
 - `dotenv` - Manejo de variables de entorno para proteger credenciales y configuraciones sensibles.
+
 - `cors` - Configuración de políticas de acceso entre dominios.
 
 ### 🧪 Validación y manejo de errores
@@ -328,8 +330,11 @@ La API contempla el manejo de errores mediante respuestas estructuradas y códig
 ### 🛡️ Comportamiento esperado
 
 - Las rutas no definidas devuelven un error 404 con un mensaje claro.
+
 - Las operaciones protegidas verifican el token JWT y devuelven 401 o 403 según el caso.
+
 - Las validaciones de entrada (body, params, query) devuelven 400 si hay errores.
+
 - Los errores inesperados, como fallos en servicios externos (e.g. Firebase), devuelven 500 con un mensaje genérico.
 
 ### 🧪 Ejemplo de error 401
@@ -351,16 +356,61 @@ La API implementa autenticación basada en tokens JWT (JSON Web Tokens) para pro
 ### 🧾 Flujo de autenticación
 
 1. El usuario inicia sesión mediante el endpoint `POST /auth/login`, proporcionando email y contraseña.
+
 2. Si las credenciales son válidas, el servidor responde con un token JWT.
+
 3. Este token debe incluirse en el encabezado `Authorization` de cada petición protegida:
 
 ```http
 Authorization: Bearer <token>
 ```
 
+## 🚀 Deploy en Vercel
+
+Este proyecto está configurado para desplegarse en [Vercel](https://vercel.com).
+
+### Pasos de despliegue
+
+1. **Instalar la CLI de Vercel (opcional)**
+
+```bash
+npm i -g vercel
+```
+2. **Configurar archivo  En la raíz del proyecto debe existir el archivo:**
+
+```bash
+{
+  "builds": [
+    { "src": "./index.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
+```
+
+3. **Configurar variables de entorno En el dashboard de Vercel:**
+
+• 	Ir a **Settings → Environment Variables**
+
+• 	Agregar las claves necesarias (ejemplo: `FIREBASE_PROJET_ID`, `FIREBASE_PRIVATE_KEY`, etc.)
+
+• 	Estas variables estarán disponibles en `process.env`.
+
+4. **Deploy**
+
+• 	Desde la terminal:
+
+```bash
+vercel
+```
+
+• 	O conectando el repositorio en la plataforma Vercel y habilitando Deploy automático en cada push a `main`.
+
+
 ## 👨‍💻 Creador del proyecto
 
-Este proyecto fue desarrollado por **Norberto Gatti**, desarrollador backend enfocado en la construcción de APIs escalables, migración a Firebase y documentación profesional.
+Este proyecto fue desarrollado por **Norberto Gatti**.
 
 ### 🧠 Perfil técnico
 

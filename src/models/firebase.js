@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import dotenv from "dotenv";
@@ -14,10 +13,8 @@ const firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firestore
 const db = getFirestore(app);
 
 export { db };

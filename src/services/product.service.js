@@ -1,4 +1,3 @@
-// products.service.js 
 import * as productService from "../models/product.model.js";
 
 export const getAllProducts = () => {

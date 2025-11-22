@@ -1,4 +1,3 @@
-// src/controllers/auth.controller.js
 import jwt from 'jsonwebtoken';
 import fileService from '../services/fileService.js';
 
