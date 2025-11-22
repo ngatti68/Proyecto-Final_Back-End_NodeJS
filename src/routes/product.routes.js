@@ -11,9 +11,9 @@ import {
 
 const router = Router();
 
-router.get('/', getAllProducts);
-router.get('/:id', getProductById);
-router.get('/category/:category', getProductsByCategory);
+router.get('/', authenticate, getAllProducts);
+router.get('/:id', authenticate, getProductById);
+router.get('/category/:category', authenticate, getProductsByCategory);
 router.post('/create', authenticate, authorize(['admin']), createProduct);
 router.put('/:id', authenticate, authorize(['admin']), updateProduct);
 router.delete('/:id', authenticate, authorize(['admin']), deleteProduct);
